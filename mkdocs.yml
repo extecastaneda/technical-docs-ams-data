@@ -1,0 +1,66 @@
+site_name: DataDoks
+site_description: DataDoks repositorio oficial del equipo AMS Data ANalytics & BigData
+site_author: extecastaneda
+use_directory_urls: false
+nav:
+  - Overview:
+    - "Presentación": index.md
+    - Inetum: overview/inetum.md
+    - AMS: overview/service.md
+  - "AMS+":
+    - Contexto: ams/about.md
+    - Beneficios: ams/benefics.md
+    - Soporte: ams/support.md
+    - Alcance: ams/alcance.md
+    - Contactos: ams/contacts.md
+    - SLA: ams/sla.md
+    - Productos: ams/products.md
+    - Procesos:
+      - "Mejora Continua": ams/mc.md
+      - Ciclo de Vida: ams/cycle.md
+      - "Análisis": ams/analysis.md
+      - "Estimación": ams/estimation.md
+  - HanaBI:
+    - Contexto: hana/context.md
+    - About: about.md
+  - Team:
+    - Changelog: change.md
+
+theme:
+  name: material
+  font:
+    text: Roboto Mono
+  icon:
+    logo: material/database-search-outline
+  language: es
+  palette:
+    - primary: indigo
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+plugins:
+  - search
+markdown_extensions:
+  - pymdownx.tabbed
+  - pymdownx.superfences
+  - pymdownx.keys
+  - pymdownx.snippets
+  - def_list
+  - attr_list
+  - admonition
+  - pymdownx.critic:
+      mode: view
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg

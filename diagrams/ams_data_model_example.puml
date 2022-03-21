@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/object-diagram
+
+package Planit {
+    object Offers
+    object Products {
+        ProductName = "string"
+        ProductCuv = "string"
+    }
+}
+package HanaBI {
+    object Stage_Offers
+    object BI_CORP_OFFERS
+}
+
+Offers .. Stage_Offers
+Products .. Stage_Offers
+
+Stage_Offers .. BI_CORP_OFFERS : Call SP
+@enduml

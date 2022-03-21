@@ -1,0 +1,58 @@
+@startuml ams_context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' skinparam handwritten true
+
+skinparam defaultFontName Verdana
+Person(person_planner, "Planner", "A user planner")
+Person(person_brand, "Brand", "A user brand")
+Person(person_tableu, "Tableau User", "A business user")
+
+System_Ext(sys_papi, "PAPI", "Product API")
+System_Ext(sys_ffvv, "FFVV", "Portal Fuerza de Venta")
+System_Ext(sys_somos_belcorp, "SomosBelcorp", "desktop and mobile app")
+System_Ext(sys_sicc, "SiCC", "Sistema Comercial")
+System_Ext(sys_bdi, "BDI", "Base Data Integrator")
+System_Ext(sys_rms, "RMS", "Retail ???")
+System_Ext(sys_sap, "SAP", "???")
+System_Ext(sys_plannit, "Plannit", "???")
+
+System(sys_ods, "ODS", "Operational Data Store")
+System(sys_mdm, "MDM", "Master Data Managment")
+System(sys_hana, "HANA BI", "Data Service Provider")
+System(sys_tableau, "Tableau", "Visualization")
+System(sys_datalake, "DataLake", "Data Repository")
+System(sys_datareport, "DataReport", "Data Report Digital")
+System(sys_doee, "DOEE", "Gerencial Report")
+System(sys_cm, "Campaign Manager", "Commercial Simmulator")
+
+Rel(person_planner, sys_cm, "Uses", "Browser")
+Rel(person_tableu, sys_tableau, "Uses", "Browser")
+Rel(person_brand, sys_mdm, "Uses", "Browser")
+Rel(sys_ffvv, sys_ods, "ReadFromAndWriteTo", "SSIS")
+Rel(sys_ods, sys_sicc, "ReadFromAndWriteTo", "SSIS")
+Rel(sys_ods, sys_papi, "ReadFrom", "JSON/HTTPS")
+
+Rel(sys_somos_belcorp, sys_ods, "ReadFromAndWriteTo", "DriverAdapter")
+
+Rel(sys_bdi, sys_ods, "WriteTo", "DriverAdapter")
+Rel(sys_bdi, sys_hana, "WriteTo", "DriverAdapter")
+Rel(sys_bdi, sys_datareport, "WriteTo", "DriverAdapter")
+
+Rel(sys_somos_belcorp, sys_bdi, "WriteTo", "DriverAdapter")
+Rel(sys_rms, sys_bdi, "WriteTo", "DriverAdapter")
+Rel(sys_sap, sys_bdi, "WriteTo", "DriverAdapter")
+Rel(sys_sicc, sys_bdi, "WriteTo", "DriverAdapter")
+Rel(sys_plannit, sys_bdi, "WriteTo", "DriverAdapter")
+
+Rel(sys_hana, sys_bdi, "WriteTo", "DriverAdapter")
+
+Rel(sys_tableau, sys_hana, "ReadFrom", "DriverAdapter")
+Rel(sys_tableau, sys_datalake, "ReadFrom", "DriverAdapter")
+Rel(sys_tableau, sys_doee, "ReadFrom", "DriverAdapter")
+
+Rel(sys_datalake, sys_cm, "WriteTo", "DriverAdapter")
+Rel(sys_mdm, sys_bdi, "WriteTo", "FileSystem")
+Rel(sys_bdi, sys_mdm, "WriteTo", "FileSystem")
+Rel(sys_mdm, sys_plannit, "ReadFrom", "FileSystem")
+
+@enduml

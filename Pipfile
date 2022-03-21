@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+mkdocs = "*"
+mkdocs-material = "*"
+
+pymdown-extensions = "*"
+mkdocs-minify-plugin = "*"
+mkdocs-redirects = "*"
+py2puml = "*"
+
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

@@ -1,0 +1,19 @@
+@startuml hana_bi
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+' skinparam handwritten true
+skinparam defaultFontName Consolas
+
+LAYOUT_LEFT_RIGHT()
+
+System(sys_tableau, "Tableau", "Visualization")
+System_Ext(sys_bdi, "BDI", "Base Data Integrator")
+
+System_Boundary(sys_hana, 'Hana BI') {
+  Container(app_xsa, "Web Application", "XSA", "SAP HANA Extended App Services")
+  Container(db_hana, "Database", "HanaDB", "Hybrid Storage")
+  Rel(app_xsa, db_hana, "Deploy", "xs_client")
+}
+Rel_U(sys_tableau, db_hana, "ReadFrom", "Adapter")
+Rel(sys_bdi, db_hana, "WriteTo", "FileSystem")
+
+@enduml

@@ -1,0 +1,47 @@
+@startuml
+hide empty description
+
+[*] --> EnAprobacion : Crear
+EnAprobacion --> EnRevision : aprobar
+EnRevision --> EnAprobacion : devolver aprobador
+EnAprobacion -left-> Solicitante : Solicitar Información
+Solicitante --> EnAprobacion : Devolver al Focal
+EnRevision --> ValidacionEstimacion : Estimación
+ValidacionEstimacion --> EnRevision : Devolver al Focal
+ValidacionEstimacion --> Solicitante : Solicitar Información
+Solicitante --> ValidacionEstimacion : Devolver al Lider
+ValidacionEstimacion --> EnRevisionEstimacion : Priorización
+EnRevisionEstimacion --> Cancelado : Cancelar
+EnRevisionEstimacion --> ValidarBenecifio : Solicitar Aprobación
+ValidarBenecifio --> EnRevisionEstimacion : Devolver Estimación
+EnRevisionEstimacion --> ValidacionEstimacion : Rechazar Estimación
+ValidacionEstimacion --> EnPlaneacion : Aprobar
+EnRevisionEstimacion --> EnPlaneacion : Enviar a Planeación
+EnPlaneacion --> EnFabrica : Enviar a Planeación
+EnFabrica --> EnPruebasDeUsuario : Paso a Pruebas
+EnPruebasDeUsuario --> Cerrado : Cerrar
+EnPruebasDeUsuario --> Validado : Validar
+EnPruebasDeUsuario --> Reabierto : Reabrir
+Reabierto --> EnFabrica : Ejecución
+Reabierto --> Cancelado : Cancelar
+EnAprobacion --> EnFabrica : En Ejecución
+EnPruebasDeUsuario --> PorDesplegarPRD : Aprobar Pase a PRD
+PorDesplegarPRD --> Validado : Validar PRD
+
+
+state Validado #lime
+state Cerrado #lime
+state Cancelado #lime
+
+state EnAprobacion #EEE
+state EnRevision #EEE
+state EnRevisionEstimacion #EEE
+state Solicitante #EEE
+state ValidarBenecifio #EEE
+state EnPruebasDeUsuario #EEE
+
+Validado --> [*]
+Cerrado --> [*]
+Cancelado --> [*]
+
+@enduml

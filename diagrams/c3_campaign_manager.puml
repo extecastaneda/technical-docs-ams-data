@@ -1,0 +1,40 @@
+@startuml LAYOUT_TOP_DOWN campaign_manager
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+' skinparam handwritten true
+skinparam defaultFontName Consolas
+skinparam defaultFontSize 14
+' skinparam ranksep 150
+
+LAYOUT_LEFT_RIGHT()
+
+Person(person_planner, "Planner", "A business Planner User")
+System_Ext(sys_datalake, "DataLake", "Data Repository")
+
+System_Boundary(sys_cm, "Campaign Manager") {
+
+
+    Container(app_api, "Api Application", "C#, NETCore 3.0", "Provide CM functionality via a Json/HTTPS API")
+    Container(app_spa, "WebPage", "AngularJS", "Provides all of the CM functionality via WebBrowser")
+'    Container(app_worker, "Worker", "NetCore C#", "Asynchronous processing")
+'    Container(app_silo, "SiloApplication", "NetCore C#", "Run distributed processes")
+
+
+  Container(db_aurora, "Database", "AuroraDB", "Config, Offers, Consultants, KPI's, Jobs, etc")
+
+
+    Container(app_jobs, "JobApplication", "Scala/Spark", "Run distributed workloads via a Bash Scripts")
+    Container(db_hdfs, "DataBase", "HDFS", "S3 FileSystem and Cloud Object Storage")
+
+  Rel(app_spa, app_api, "MakeApiCallsTo", "JSON/HTTPS")
+'  Rel_U(app_silo, db_aurora, "MakeApiCallsTo", "JSON/HTTPS")
+'  Rel(app_worker, app_jobs, "RunBashScripts", "SSH")
+  Rel(app_api, app_jobs, "RunBashScripts", "SSH")
+  Rel(app_jobs, db_aurora, "ReadWrite", "JDBC")
+  Rel_U(app_jobs, db_hdfs, "ReadWrite", "hdfs")
+  Rel(app_api, db_aurora, "ReadWrite", "Adapter")
+
+}
+Rel(person_planner, app_spa, "Use", "Browser")
+Rel(sys_datalake, db_hdfs, "WriteTo", "FileSystem")
+
+@enduml

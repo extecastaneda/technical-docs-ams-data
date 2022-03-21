@@ -1,0 +1,29 @@
+@startuml
+hide empty description
+
+[*] -right-> Backlog : Crear
+Backlog --> Cancelado : Cancelar
+Backlog --> EnProgreso : Iniciar Progreso
+EnProgreso --> Entregado : Entregar
+Entregado --> Reabierto : Reabrir
+Reabierto --> EnProgreso : Iniciar Progreso
+EnProgreso -right-> Cancelado : Cancelar
+EnProgreso --> Bloqueado : Bloquear
+Bloqueado --> EnProgreso : Iniciar Progreso
+Entregado --> Validado : Validar
+Validado --> Cerrado : Cerrar
+Entregado --> Cerrado : Cerrar
+Entregado --> PorDesplegarPRD : Aprobar Despliegue a PRD
+PorDesplegarPRD --> Validado : Validar Despliegue a PRD
+Cerrado --> Entregado : Entregar
+
+
+state Validado #lime
+state Cerrado #lime
+state Cancelado #lime
+
+Validado --> [*]
+Cerrado --> [*]
+Cancelado --> [*]
+
+@enduml

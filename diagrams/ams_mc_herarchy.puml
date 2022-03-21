@@ -1,0 +1,27 @@
+@startwbs
+* Epic
+** Feature 1
+***< User History 1
+**** Task 1
+**** Task 2
+**** Task 3
+*** User History 2
+**** Task 1
+
+** Feature 2
+***< User History 1
+**** Task 1
+**** Task 2
+**** Task 3
+***< User History 2
+**** Task 1
+*** User History 3
+**** Task 1
+**** Task 2
+** Feature 3
+*** User History 1
+**** Task 1
+**** Task 2
+**** Task 3
+
+@endwbs
